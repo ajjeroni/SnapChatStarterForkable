@@ -11,6 +11,7 @@ import FriendStory from "../screens/FriendStory";
 import AstrologyScreen from "../screens/AstrologyScreen";
 import MemoryScreen from "../screens/MemoryScreen";
 import EventScreen from "../screens/EventScreen"; //New component by Sona and Christian
+import AllNotesScreen from "../screens/AllNotesScreen"; // Component by Adan and Gev
 
 const Stack = createStackNavigator();
 
@@ -63,6 +64,11 @@ export default function App() {
           name="Settings"
           component={SettingsScreen}
           options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="All Notes"
+          component={AllNotesScreen}
+          options={{ headerShown: true}}
         />
         <Stack.Screen
           name="Event"
