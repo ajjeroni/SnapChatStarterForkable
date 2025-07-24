@@ -12,6 +12,7 @@ import AstrologyScreen from "../screens/AstrologyScreen";
 import MemoryScreen from "../screens/MemoryScreen";
 import EventScreen from "../screens/EventScreen"; //New component by Sona and Christian
 import AllNotesScreen from "../screens/AllNotesScreen"; // Component by Adan and Gev
+import SingleNoteScreen from "../screens/SingleNoteSreen"; // Component by Gev and Adan
 
 const Stack = createStackNavigator();
 
@@ -68,6 +69,11 @@ export default function App() {
         <Stack.Screen
           name="All Notes"
           component={AllNotesScreen}
+          options={{ headerShown: true}}
+        />
+        <Stack.Screen
+          name="Note"
+          component={SingleNoteScreen}
           options={{ headerShown: true}}
         />
         <Stack.Screen

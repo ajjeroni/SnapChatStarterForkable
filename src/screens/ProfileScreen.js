@@ -73,7 +73,14 @@ export default function ProfileScreen() {
           title="Notes"
         />
       </Pressable>
-
+      <Pressable>
+        <Button
+          onPress={() => {
+            navigation.navigate("Note", {});
+          }}
+          title="Note"
+        />
+      </Pressable>
     </View>
   );
 }
