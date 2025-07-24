@@ -1,6 +1,6 @@
 import { useState, useEffect, use } from "react";
 import { View, Text, Pressable, TextInput, StyleSheet } from "react-native";
-import { Ionicons } from '@expo/vector-icons'; // for back arrow
+import Icon from 'react-native-vector-icons/Feather';
 import { supabase } from "../utils/hooks/supabase";
 export default function SingleNoteScreen({ route, navigation }) {
     const { id } = route.params;
@@ -60,8 +60,13 @@ export default function SingleNoteScreen({ route, navigation }) {
                 />
             </View>
             {/* Floating Save Button */}
-            <Pressable style={styles.check} onPress={updateNote}>
-                <Ionicons name="checkmark" size={28} color="white" />
+            <Pressable
+                style={styles.check}
+                onPress={async () => {
+                    await updateNote();  //Updates the note (save)
+                    navigation.goBack(); //Navs back to AllNotesScreen
+                }}>
+                <Icon name="check" size={28} color="white" />
             </Pressable>
         </View>
     );

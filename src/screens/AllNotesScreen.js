@@ -89,11 +89,28 @@ export default function AllNotesScreen() {
 
             <Pressable
                 style={styles.plus}
-                onPress={() => {
+                onPress={async () => {
                     console.log("New note + clicked");
-                }}>
+
+                    // create new note!
+                    const { data, error } = await supabase
+                        .from("notesTable")
+                        .insert([{ header: "Untitled", body: "...", updated_at: new Date().toISOString() }])
+                        .select()
+                        .single();
+
+                    if (error) {
+                        console.error("Error creating new note:", error.message);
+                        return;
+                    }
+
+                    //Navigates to single note screen with new id
+                    navigation.navigate("Single Note", { id: data.id });
+                }}
+            >
                 <Icon name="plus" size={30} color="white" />
             </Pressable>
+
         </View>
 
     );
