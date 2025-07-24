@@ -1,41 +1,43 @@
-import React, { useEffect } from "react";
-import { View, Text, FlatList, StyleSheet, Button, Pressable } from "react-native"
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, StyleSheet, Pressable, Button } from "react-native"
+import { supabase } from "../utils/hooks/supabase";
 
 export default function AllNotesScreen() {
+    const [notes, setNotes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    
-    /*
-    const DATA = [
-        {
-            id: "1",
-            title: "First Item",
-        },
-        {
-            id: "2",
-            title: "Second Item",
-        },
-        {
-            id: "3",
-            title: "Third Item",
-        },
-        {
-            id: "4",
-            title: "Fourth Item",
-        },
-    ];
-    const Item = ({ title }) => (
+
+    async function fetchNotes() {
+        const { data, error } = await supabase
+            .from('notesTable')
+            .select('id,header')
+        if (error) {
+            console.error("Error fetching notes: ", error.message);
+            return;
+        }
+        console.log("calls fetchNotes, data: ", data)
+        
+        setNotes(data);
+        setLoading(false);
+    }
+       useEffect(()=> {
+        fetchNotes();
+        console.log("calls use Effect, notes: ",notes);
+
+    }, []);
+
+       const renderItem = ({ item }) => (
         <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{item.header}</Text>
         </View>
-    )
-    */
+    );
     return (
         <View >
-            <FlatList style={styles.notesList}
-                // data={DATA}
-                // renderItem={({ item }) => <Item title={item.title} />}
-                // keyExtractor={item => item.id}
+            <FlatList 
+                style={styles.notesList} 
+                data={notes} //The array of data you want to render
+                renderItem={renderItem} // function that returns the component to render for each item
+                keyExtractor={item => item.id.toString()} 	//func that returns a unique key for each item
             />
 
             <Pressable>
@@ -66,3 +68,4 @@ const styles = StyleSheet.create({
     }
 
 });
+
