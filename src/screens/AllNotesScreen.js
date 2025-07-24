@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, Pressable, Button } from "react-native"
 import { supabase } from "../utils/hooks/supabase";
 import Icon from 'react-native-vector-icons/Feather';
+import {useNavigation} from "@react-navigation/native";
 
 
 export default function AllNotesScreen() {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigation= useNavigation();
 
 
     async function fetchNotes() {
@@ -45,14 +47,24 @@ export default function AllNotesScreen() {
     }, []);
 
     const renderItem = ({ item }) => (
-        <View style={styles.item}>
-            <Text style={styles.title}>{item.header}</Text>
-            <Text style={styles.subtitle}>{item.created_at.slice(0,10)}</Text>
-            <Pressable onPress={() => deleteNote(item.id)} style={styles.trashButton}>
-                <Icon name="trash-2" size={24} color="rgb(255,0,0)" />
-                {/* <Text style={styles.trashIcon}>🗑️</Text> */}
-            </Pressable>
-        </View>
+        <Pressable
+            onPress={() => {
+                console.log(item.header, " was pressed");
+                navigation.navigate("Single Note", {id: item.id});
+                console.log("Item clicked id: ", item.id);
+            }}
+        >
+            <View style={styles.item}>
+                <Text style={styles.title}>{item.header}</Text>
+                <Text style={styles.subtitle}>{item.created_at.slice(0, 10)}</Text>
+                <Pressable onPress={() => deleteNote(item.id)} style={styles.trashButton}>
+                    <Icon name="trash-2" size={24} color="rgb(255,0,0)" />
+                    {/* <Text style={styles.trashIcon}>🗑️</Text> */}
+                </Pressable>
+
+            </View>
+        </Pressable>
+
     );
     return (
         <View style={styles.container}>
@@ -112,20 +124,20 @@ const styles = StyleSheet.create({
     },
 
     plus: {
-    position: "absolute",
-    bottom: 50,
-    right: 170,
-    backgroundColor: "#007AFF",
-    borderRadius: 30,
-    width: 60,
-    height: 60,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-},
+        position: "absolute",
+        bottom: 50,
+        right: 170,
+        backgroundColor: "#007AFF",
+        borderRadius: 30,
+        width: 60,
+        height: 60,
+        justifyContent: "center",
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+    },
 });
 
 
