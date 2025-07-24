@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, FlatList, StyleSheet, Pressable, Button } from "react-native"
 import { supabase } from "../utils/hooks/supabase";
 import Icon from 'react-native-vector-icons/Feather';
-import {useNavigation} from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 
 export default function AllNotesScreen() {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
-    const navigation= useNavigation();
+    const navigation = useNavigation();
 
 
     async function fetchNotes() {
         const { data, error } = await supabase
             .from('notesTable')
-            .select('id,header, created_at')
+            .select('id,header, created_at, updated_at')
         if (error) {
             console.error("Error fetching notes: ", error.message);
             return;
         }
         console.log("calls fetchNotes, data: ", data)
 
-        setNotes(data);
+        //sort descending (most recent first) in js
+        const sortedNotes = data.sort((a, b) => {
+            const dateA = new Date(a.updated_at || a.created_at);
+            const dateB = new Date(b.updated_at || b.created_at);
+            return dateB - dateA;
+        });
+
+        setNotes(sortedNotes);
         setLoading(false);
     }
-
     async function deleteNote(noteId) {
         const { error } = await supabase
             .from('notesTable')
@@ -40,17 +46,22 @@ export default function AllNotesScreen() {
         setNotes(prev => prev.filter((note) => note.id !== noteId));
     }
 
-    useEffect(() => {
-        fetchNotes();
-        console.log("calls use Effect, notes: ", notes);
+    useFocusEffect(
 
-    }, []);
+        useCallback(() => {
+            fetchNotes();
+            console.log("calls use Effect, notes: ", notes);
+        }, [])
+    );
+
+
+
 
     const renderItem = ({ item }) => (
         <Pressable
             onPress={() => {
                 console.log(item.header, " was pressed");
-                navigation.navigate("Single Note", {id: item.id});
+                navigation.navigate("Single Note", { id: item.id });
                 console.log("Item clicked id: ", item.id);
             }}
         >
@@ -73,6 +84,7 @@ export default function AllNotesScreen() {
                 data={notes} //The array of data you want to render
                 renderItem={renderItem} // function that returns the component to render for each item
                 keyExtractor={item => item.id.toString()} 	//func that returns a unique key for each item
+            //inverted={true}
             />
 
             <Pressable
