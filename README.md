@@ -4,18 +4,17 @@
 <br />
 <div align="center">
   <a href="https://github.com/ajjeroni/SnapChatStarterForkable">
-    <img src="https://avatars.githubusercontent.com/u/172326870?s=280&v=4" alt="Logo" width="180" height="80">
+    <img src="https://avatars.githubusercontent.com/u/172326870?s=280&v=4" alt="Logo" width="180" height="180">
   </a>
 
 <h3 align="center">Snapchat Clone Notes Feature</h3>
 
   <p align="center">
-  A Notes Feature to a Snapchat React Native + Supabase Clone utilizing React Navigation, State hooks, and data insertion/deletion/updating in real-time.
+  A Notes Feature to a Snapchat React Native + Supabase Clone utilizing React Navigation, State hooks, and database insertion/deletion/updating in real-time.
     <br />
     <a href="https://github.com/Snap-Engineering-Academy-2025/SnapChatStarterForkable"><strong>Explore the Docs Link»</strong></a>
     <br />
-    <br />
-    <a href="[Snap Feature Prototype - Notes.pdf](https://github.com/user-attachments/files/21461041/Snap.Feature.Prototype.-.Notes.pdf)
+    <a href="https://github.com/user-attachments/files/21461041/Snap.Feature.Prototype.-.Notes.pdf
 ">View Demo Link</a>
   </p>
 </div>
@@ -65,60 +64,118 @@ Key features:
 ### Built With 
 (*Note: scroll down in the markdown view of this readme to configure the syntax and switch out tech stacks.)
 
+### Contributors
+Adan Jeronimo and Gev Verango
+
 - [![React][React.js]][React-url]
-- [![React Native][React Native]][React Native-url]
-- [![Supabase][Supabase.com]][Supabase-url]
+<!-- - [![React Native][React Native]][React Native-url]
+- [![Supabase][Supabase.com]][Supabase-url] -->
   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
-## Getting Started
+## 🚀 Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running, follow these simple example steps.
+Follow these steps to set up the project locally and begin development.
 
-### Prerequisites
+### ✅ Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Ensure you have the following installed:
 
-- npm
+- **Node.js** and **npm**  
+  Check if they're installed:
   ```sh
-  npm install npm@latest -g
-  ```
+  node -v
+  npm -v
+```
 
-### Installation
+If not, install from https://nodejs.org
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
-   ```
+Expo CLI
+Install globally if not already:
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+```
+npm install -g expo-cli
+```
+Supabase Account
+Create a free account at https://supabase.io
 
-<!-- USAGE EXAMPLES -->
+Git (for version control)
+```
+git --version
+```
 
-## Usage
+## Installation Steps
+1. Clone the repository
+```
+git clone https://github.com/Snap-Engineering-Academy-2025/SnapChatStarterForkable.git
+cd SnapChatStarterForkable
+```
+2. Install dependencies
+```
+npm install
+```
+3. Configure Supabase credentials
+Create a .env file in the root directory and add:
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+env
+```
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+Start the development server
+```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+sh
+Copy
+Edit
+expo start
+Run the app
 
+Scan the QR code using the Expo Go app on your phone
+
+Or run in a simulator/emulator
+
+🗃️ Supabase Table Setup
+If creating a new Supabase project, define a notes table:
+
+Column Name	Type	Description
+id	uuid	Primary key (auto-gen)
+user_id	uuid	Foreign key to users
+title	text	Note title
+content	text	Main note content
+updated_at	timestamp	Last modified timestamp
+
+Enable Row Level Security (RLS)
+
+Add policies to allow users to manage only their own notes
+
+🛠 Optional Git Reset
+To avoid pushing to the original starter repo:
+
+sh
+Copy
+Edit
+git remote set-url origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git remote -v  # Confirm it worked
+📁 Project Structure
+bash
+Copy
+Edit
+SnapChatStarterForkable/
+├── App.js
+├── components/
+│   └── NoteCard.js
+├── screens/
+│   ├── AllNotesScreen.js
+│   └── EditNoteScreen.js
+├── utils/
+│   └── supabase.js
+├── assets/
+├── .env
+└── package.json
+<p align="right">(<a href="#readme-top">back to top</a>)</p> ```
 <!-- LICENSE -->
 
 ## License
@@ -133,14 +190,8 @@ Distributed under the project_license. See `LICENSE.txt` for more information.
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-[Supabase.com]: https://www.nasdaqprivatemarket.com/wp-content/uploads/2024/11/supabase_logo.jpg
-[Supabase-url]: https://supabase.com/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Reactnative.dev]: https://img.icons8.com/ios_filled/512/FFFFFF/react-native.png
-[ReactNative-url]: https://reactnative.dev/
-
 
 ## Let's talk resouces
 
