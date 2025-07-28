@@ -86,6 +86,7 @@ Ensure you have the following installed:
 
 - **Node.js** and **npm**  
   Check if they're installed:
+
   ```sh
   node -v
   npm -v
@@ -96,9 +97,11 @@ If not, install from https://nodejs.org
 Expo CLI
 Install globally if not already:
 
+
 ```
 npm install -g expo-cli
 ```
+
 Supabase Account
 Create a free account at https://supabase.io
 
